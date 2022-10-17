@@ -15,8 +15,10 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen }) => {
   const generateLink = (i) => {
     switch (i) {
       case 0: return '/';
-      case 1: return '/listed-nfts';
-      case 2: return '/my-nfts';
+      case 1: return '/collections';
+      case 2: return '/artists';
+      case 3: return '/listed-nfts';
+      case 4: return '/my-nfts';
       default:
         break;
     }
@@ -24,7 +26,7 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen }) => {
 
   return (
     <ul className={`list-none flexCenter flex-row ${isMobile && 'flex-col h-full'}`}>
-      {['Explore NFTs', 'Listed NFTs', 'My NFTs'].map((item, i) => (
+      {['Home', 'Colecciones', 'Artistas', 'Listed NFTs', 'My NFTs'].map((item, i) => (
         <li
           key={i}
           onClick={() => {
@@ -71,7 +73,13 @@ const ButtonGroup = ({ setActive, router, setIsOpen }) => {
 const checkActive = (active, setActive, router) => {
   switch (router.pathname) {
     case '/':
-      if (active !== 'Explore NFTs') setActive('Explore NFTs');
+      if (active !== 'Home') setActive('Home');
+      break;
+    case '/collections':
+      if (active !== 'Colecciones') setActive('Colecciones');
+      break;
+    case '/artists':
+      if (active !== 'Colecciones') setActive('Colecciones');
       break;
     case '/listed-nfts':
       if (active !== 'Listed NFTs') setActive('Listed NFTs');
@@ -82,7 +90,6 @@ const checkActive = (active, setActive, router) => {
     case '/create-nft':
       setActive('');
       break;
-
     default:
       setActive('');
   }
@@ -91,7 +98,7 @@ const checkActive = (active, setActive, router) => {
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
-  const [active, setActive] = useState('Explore NFTs');
+  const [active, setActive] = useState('Home');
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -109,18 +116,17 @@ const Navbar = () => {
           <div
             className="flexCenter md:hidden cursor-pointer"
             onClick={() => {
-              setActive('Explore NFTs');
+              setActive('Home');
             }}
           >
-            <Image src={images.logo02} objectFit="contain" width={40} height={40} alt="logo" />
-            <p className="dark:text-white text-nft-black-1 font-bold text-xl ml-1">JorgePoly</p>
+            <Image src={images.logo} objectFit="contain" width={100} height={100} alt="logo" />
           </div>
         </Link>
         <Link href="/">
           <div
             className="hidden md:flex cursor-pointer"
             onClick={() => {
-              setActive('Explore NFTs');
+              setActive('Home');
               setIsOpen(false);
             }}
           >
@@ -129,7 +135,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex flex-initial flex-row justify-end">
-        <div className="flex items-center mr-4">
+        {/* <div className="flex items-center mr-4">
           <input
             type="checkbox"
             className="checkbox"
@@ -141,7 +147,7 @@ const Navbar = () => {
             <i className="fas fa-sun" />
             <div className="w-3 h-3 absolute bg-white rounded-full ball" />
           </label>
-        </div>
+        </div> */}
 
         <div className="md:hidden flex">
           <MenuItems active={active} setActive={setActive} />

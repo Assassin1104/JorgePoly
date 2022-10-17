@@ -5,17 +5,18 @@ import Head from 'next/head';
 import { NFTProvider } from '../context/NFTContext';
 import { Navbar, Footer } from '../components';
 import '../styles/globals.css';
+// import '../styles/Animate.css';
 
 const MyApp = ({ Component, pageProps }) => (
   <NFTProvider>
     <ThemeProvider attribute="class">
       <div className="dark:bg-nft-dark bg-white min-h-screen">
         <Head>
-          <title>JorgePoly</title>
+          <title>NFTCriptoGallery</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         </Head>
         <Navbar />
-        <div className="pt-65">
+        <div className="pt-40">
           <Component {...pageProps} />
         </div>
         <Footer />

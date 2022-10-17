@@ -1,182 +1,107 @@
-import { useState, useEffect, useRef, useContext } from 'react';
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
-
-import { NFTContext } from '../context/NFTContext';
-import { Banner, CreatorCard, Loader, NFTCard, SearchBar } from '../components';
-
+import { useRouter } from 'next/router';
 import images from '../assets';
-import { getCreators } from '../utils/getTopCreators';
-import { shortenAddress } from '../utils/shortenAddress';
 
-const Home = () => {
-  const { fetchNFTs } = useContext(NFTContext);
-  const [hideButtons, setHideButtons] = useState(false);
-  const [nfts, setNfts] = useState([]);
-  const [nftsCopy, setNftsCopy] = useState([]);
-  const { theme } = useTheme();
-  const [activeSelect, setActiveSelect] = useState('Recently Added');
-  const [isLoading, setIsLoading] = useState(true);
+import mainNFT1 from '../assets/main/nft1.png';
+import mainNFT2 from '../assets/main/nft2.png';
+import mainNFT3 from '../assets/main/nft3.png';
+import mainNFT4 from '../assets/main/nft4.png';
 
-  const parentRef = useRef(null);
-  const scrollRef = useRef(null);
+import artType1 from '../assets/main/palette-solid.svg';
+import artType2 from '../assets/main/camera-retro-solid.svg';
+import artType3 from '../assets/main/photo-film-solid.svg';
 
-  useEffect(() => {
-    fetchNFTs()
-      .then((items) => {
-        setNfts(items);
-        setNftsCopy(items);
-        setIsLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    const sortedNfts = [...nfts];
-
-    switch (activeSelect) {
-      case 'Price (low to high)':
-        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
-        break;
-      case 'Price (high to low)':
-        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
-        break;
-      case 'Recently Added':
-        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
-        break;
-      default:
-        setNfts(nfts);
-        break;
-    }
-  }, [activeSelect]);
-
-  const onHandleSearch = (value) => {
-    const filteredNfts = nfts.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));
-
-    if (filteredNfts.length) {
-      setNfts(filteredNfts);
-    } else {
-      setNfts(nftsCopy);
-    }
-  };
-
-  const onClearSearch = () => {
-    if (nfts.length && nftsCopy.length) {
-      setNfts(nftsCopy);
-    }
-  };
-
-  const handleScroll = (direction) => {
-    const { current } = scrollRef;
-
-    const scrollAmount = window.innerWidth > 1800 ? 270 : 210;
-
-    if (direction === 'left') {
-      current.scrollLeft -= scrollAmount;
-    } else {
-      current.scrollLeft += scrollAmount;
-    }
-  };
-
-  const isScrollable = () => {
-    const { current } = scrollRef;
-    const { current: parent } = parentRef;
-
-    if (current?.scrollWidth >= parent?.offsetWidth) {
-      setHideButtons(false);
-    } else {
-      setHideButtons(true);
-    }
-  };
-
-  useEffect(() => {
-    isScrollable();
-
-    window.addEventListener('resize', isScrollable);
-
-    return () => {
-      window.removeEventListener('resize', isScrollable);
-    };
-  });
-
-  const topCreators = getCreators(nftsCopy);
-
+const Button = () => {
+  const router = useRouter();
   return (
-    <div className="flex justify-center sm:px-4 p-12">
-      <div className="w-full minmd:w-4/5">
-        <Banner
-          name="NFT's are birth certificates for the offspring of creators."
-          childStyles="md:text-4xl sm:text-2xl xs:text-xl text-center"
-          parentStyles="justify-start mb-6 h-72 sm:h-60 p-12 xs:p-4 xs:h-44 rounded-3xl"
-        />
-
-        {!isLoading && !nfts.length ? (
-          <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Looks like the Marketplace is empty.</h1>
-        ) : isLoading ? <Loader /> : (
-          <>
-            <div>
-              <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">
-                Top Creators
-              </h1>
-              <div className="relative flex-1 max-w-full flex mt-3" ref={parentRef}>
-                <div className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none" ref={scrollRef}>
-                  {topCreators.map((creator, i) => (
-                    <CreatorCard
-                      key={creator.seller}
-                      rank={i + 1}
-                      creatorImage={images[`creator${i + 1}`]}
-                      creatorName={shortenAddress(creator.seller)}
-                      creatorEths={creator.sum}
-                    />
-                  ))}
-                  {!hideButtons && (
-                  <>
-                    <div onClick={() => handleScroll('left')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer left-0">
-                      <Image
-                        src={images.left}
-                        layout="fill"
-                        objectFit="contain"
-                        alt="left_arrow"
-                        className={theme === 'light' ? 'filter invert' : ''}
-                      />
-                    </div>
-                    <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0">
-                      <Image
-                        src={images.right}
-                        layout="fill"
-                        objectFit="contain"
-                        alt="right_arrow"
-                        className={theme === 'light' ? 'filter invert' : ''}
-                      />
-                    </div>
-                  </>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start">
-                <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">Hot NFTs 🔥</h1>
-                <div className="flex-2 sm:w-full flex flex-row sm:flex-col">
-                  <SearchBar
-                    activeSelect={activeSelect}
-                    setActiveSelect={setActiveSelect}
-                    handleSearch={onHandleSearch}
-                    clearSearch={onClearSearch}
-                  />
-                </div>
-              </div>
-              <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-                {nfts.map((nft) => <NFTCard key={nft.tokenId} nft={nft} />)}
-              </div>
-            </div>
-          </>
-        )}
-
-      </div>
-    </div>
+    <button type="button" onClick={() => router.push('/collections')} style={{ fontSize: '18px', backgroundColor: '#61CE70', padding: '10px', borderRadius: '5px', width: '150px', marginTop: '15px' }}>
+      Ver Galeria
+    </button>
   );
 };
+
+const NFTView = ({ mainNFT, content1, content2 }) => (
+  <div className="fullwrap">
+    <Image className="image" src={mainNFT} />
+    <div className="fullcap" style={{ fontSize: '20px', fontWeight: '500' }}>
+      {content1}<br />
+      {content2}<br />
+      {/* <button type="button">Click!</button> */}
+    </div>
+  </div>
+);
+
+const ArtType = ({ mainNFT, content1 }) => (
+  <div className="art-type" style={{ backgroundColor: 'white', borderRadius: '10px', height: '350px', color: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <Image className="image" src={mainNFT} style={{ width: '80px', height: '80px' }} />
+    <p style={{ fontSize: '24px', fontWeight: '500', marginTop: '10px' }}>{content1}</p>
+  </div>
+);
+
+const AboutItems = ({ color1, color2, content1, content2 }) => (
+  <div className="about-item" style={{ backgroundColor: { color1 }, borderRadius: '10px', height: '350px', color: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ backgourndColor: { color2 }, width: '50px', height: '50px' }} />
+    <p style={{ fontSize: '24px', fontWeight: '500', marginTop: '10px' }}>{content1}</p>
+    <p style={{ fontSize: '24px', fontWeight: '500', marginTop: '10px' }}>{content2}</p>
+  </div>
+);
+
+const Home = () => (
+  <div className="px-10 sm:px-10 p-12">
+    <div className="columns-2 md:columns-1 md:flex md:flex-col-reverse text-center">
+      <div className="text-left" style={{ display: 'flex', flexDirection: 'column' }}>
+        <p style={{ fontSize: '18px', fontWeight: '500', color: '#25CFAA', letterSpacing: '5px' }}>DIGITALIZAMOS ARTE</p>
+        <p style={{ fontSize: '48px', fontWeight: '900' }}>Explora miles de obras de arte digital y coleccionables</p>
+        <p style={{ fontSize: '18px', fontWeight: '500' }}>Compra y vende NFTs, busca en nuestras galerias obras de arte y coleccionables de los mejores artistas alrededor del mundo</p>
+        <Button />
+      </div>
+      <div className="text-xs">
+        <Image src={images.mainImage1} objectFit="contain" alt="logo" />
+      </div>
+    </div>
+    <div className="text-center w-10/12 mx-auto pt-[100px]">
+      <p style={{ fontSize: '36px', fontWeight: '600' }}>Con CriptoGallery NFT explora las Obras de Arte de Nuestros Artistas Más Populares</p>
+      <p style={{ fontSize: '20px', fontWeight: '600' }}>Encuentra nuevos artistas talentosos cada día y agrega obras exclusivas a tus colecciones de arte digital. </p>
+    </div>
+    <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-[100px]">
+      <NFTView mainNFT={mainNFT1} content1="Encerrado" content2="@jaG" />
+      <NFTView mainNFT={mainNFT2} content1="Drink Art" content2="@jaG" />
+      <NFTView mainNFT={mainNFT3} content1="Levitate" content2="@jaG" />
+      <NFTView mainNFT={mainNFT4} content1="Torbellio" content2="Classic Modern Water Paint" />
+    </div>
+    <div className="text-center w-10/12 mx-auto pt-[100px]">
+      <p style={{ fontSize: '36px', fontWeight: '600' }}>Cualquier Industria Se Puede Beneficiar Através de NFT's</p>
+      <p style={{ fontSize: '20px', fontWeight: '600' }}>Para comerciantes, creadores y coleccionistas, nuestra plataforma NFT es el lugar en donde el arte se convierte en único.</p>
+    </div>
+    <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-[100px]">
+      <ArtType mainNFT={artType1} content1="Encerrado" />
+      <ArtType mainNFT={artType2} content1="Encerrado" />
+      <ArtType mainNFT={artType3} content1="Encerrado" />
+    </div>
+    <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-[200px]">
+      <div className="about-item1" style={{ backgroundColor: '#4F5CEB', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px'}}>
+        <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
+        <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Descubre a los mejores artistas y creadores</p>
+        <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Explora el increíble mundo del arte digital.</p>
+      </div>
+      <div className="about-item1" style={{ backgroundColor: '#FF6D3D', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px'}}>
+        <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
+        <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Compra y Vende tus NFTs</p>
+        <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Compra y vende fácilmente tus NFT's en el mejor marketplace.</p>
+      </div>
+      <div className="about-item1" style={{ backgroundColor: '#25CFAA', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px'}}>
+        <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
+        <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Haz crecer tu colección de Arte Digital</p>
+        <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Agrega nuevo, innovador y único arte a tu colección.</p>
+      </div>
+      <div className="about-item1" style={{ backgroundColor: '#FFCA40', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px' }}>
+        <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
+        <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Gana Dinero Vendiendo NFTs</p>
+        <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Gana vendiendo NFTs con métodos seguros de pago.</p>
+      </div>
+    </div>
+  </div>
+);
 
 export default Home;
 
