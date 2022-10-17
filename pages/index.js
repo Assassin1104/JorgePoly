@@ -38,14 +38,6 @@ const ArtType = ({ mainNFT, content1 }) => (
   </div>
 );
 
-const AboutItems = ({ color1, color2, content1, content2 }) => (
-  <div className="about-item" style={{ backgroundColor: { color1 }, borderRadius: '10px', height: '350px', color: 'black', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-    <div style={{ backgourndColor: { color2 }, width: '50px', height: '50px' }} />
-    <p style={{ fontSize: '24px', fontWeight: '500', marginTop: '10px' }}>{content1}</p>
-    <p style={{ fontSize: '24px', fontWeight: '500', marginTop: '10px' }}>{content2}</p>
-  </div>
-);
-
 const Home = () => (
   <div className="px-10 sm:px-10 p-12">
     <div className="columns-2 md:columns-1 md:flex md:flex-col-reverse text-center">
@@ -70,7 +62,7 @@ const Home = () => (
       <NFTView mainNFT={mainNFT4} content1="Torbellio" content2="Classic Modern Water Paint" />
     </div>
     <div className="text-center w-10/12 mx-auto pt-[100px]">
-      <p style={{ fontSize: '36px', fontWeight: '600' }}>Cualquier Industria Se Puede Beneficiar Através de NFT's</p>
+      <p style={{ fontSize: '36px', fontWeight: '600' }}>Cualquier Industria Se Puede Beneficiar Através de NFTs</p>
       <p style={{ fontSize: '20px', fontWeight: '600' }}>Para comerciantes, creadores y coleccionistas, nuestra plataforma NFT es el lugar en donde el arte se convierte en único.</p>
     </div>
     <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-[100px]">
@@ -79,17 +71,17 @@ const Home = () => (
       <ArtType mainNFT={artType3} content1="Encerrado" />
     </div>
     <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-[200px]">
-      <div className="about-item1" style={{ backgroundColor: '#4F5CEB', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px'}}>
+      <div className="about-item1" style={{ backgroundColor: '#4F5CEB', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px' }}>
         <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
         <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Descubre a los mejores artistas y creadores</p>
         <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Explora el increíble mundo del arte digital.</p>
       </div>
-      <div className="about-item1" style={{ backgroundColor: '#FF6D3D', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px'}}>
+      <div className="about-item1" style={{ backgroundColor: '#FF6D3D', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px' }}>
         <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
         <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Compra y Vende tus NFTs</p>
-        <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Compra y vende fácilmente tus NFT's en el mejor marketplace.</p>
+        <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Compra y vende fácilmente tus NFTs en el mejor marketplace.</p>
       </div>
-      <div className="about-item1" style={{ backgroundColor: '#25CFAA', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px'}}>
+      <div className="about-item1" style={{ backgroundColor: '#25CFAA', borderRadius: '15px', color: 'white', textAlign: 'start', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'start', paddingInline: '20px', paddingBlock: '20px' }}>
         <div style={{ background: '#FFFFFF33', width: '50px', height: '50px' }} />
         <p style={{ fontSize: '20px', fontWeight: '500', marginTop: '10px' }}>Haz crecer tu colección de Arte Digital</p>
         <p style={{ fontSize: '12px', fontWeight: '500', marginTop: '10px' }}>Agrega nuevo, innovador y único arte a tu colección.</p>
