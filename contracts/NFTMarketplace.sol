@@ -12,7 +12,7 @@ contract NFTMarketplace is ERC721URIStorage {
     Counters.Counter private _tokenIds;
     Counters.Counter private _itemsSold;
 
-    uint256 listingPrice = 0.025 ether;
+    uint256 listingPrice = 0.025   ether;
     address payable owner;
 
     mapping(uint256 => MarketItem) private idToMarketItem;
@@ -32,6 +32,12 @@ contract NFTMarketplace is ERC721URIStorage {
       uint256 price,
       bool sold
     );
+
+    // event Transfer(
+    //     address indexed from,
+    //     address indexed to,
+    //     uint256 value
+    // );
 
     constructor() ERC721("JorgePoly Inc.", "JGP") {
       owner = payable(msg.sender);
