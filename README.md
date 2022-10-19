@@ -1,8 +1,8 @@
 <p align="center">
-<img src="/assets/logo02.png" alt="Alt text logo" title="Logo" width="80px" height="80px">
+<img src="/assets/logo.png" alt="Alt text logo" title="Logo" width="80px" height="80px">
 </p>
 
-# Polyplace
+# JorgePoly
 
 An open decentralized NFT Marketplace built with Solidity and Next.js, powered by Polygon Technologies. It basically is an open platform where users can mint and trade their own NFTs.
 

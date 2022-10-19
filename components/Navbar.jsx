@@ -148,7 +148,6 @@ const Navbar = () => {
             <div className="w-3 h-3 absolute bg-white rounded-full ball" />
           </label>
         </div>
-
         <div className="md:hidden flex">
           <MenuItems active={active} setActive={setActive} />
           <div className="ml-4">
