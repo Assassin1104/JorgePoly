@@ -135,7 +135,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex flex-initial flex-row justify-end">
-        {/* <div className="flex items-center mr-4">
+         <div className="flex items-center mr-4">
           <input
             type="checkbox"
             className="checkbox"
@@ -147,7 +147,7 @@ const Navbar = () => {
             <i className="fas fa-sun" />
             <div className="w-3 h-3 absolute bg-white rounded-full ball" />
           </label>
-        </div> */}
+        </div> 
 
         <div className="md:hidden flex">
           <MenuItems active={active} setActive={setActive} />
