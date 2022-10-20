@@ -16,9 +16,8 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen }) => {
     switch (i) {
       case 0: return '/';
       case 1: return '/collections';
-      case 2: return '/artists';
-      case 3: return '/listed-nfts';
-      case 4: return '/my-nfts';
+      case 2: return '/listed-nfts';
+      case 3: return '/my-nfts';
       default:
         break;
     }
@@ -26,7 +25,7 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen }) => {
 
   return (
     <ul className={`list-none flexCenter flex-row ${isMobile && 'flex-col h-full'}`}>
-      {['Home', 'Colecciones', 'Artistas', 'Listed NFTs', 'My NFTs'].map((item, i) => (
+      {['Home', 'Colecciones', 'Listed NFTs', 'My NFTs'].map((item, i) => (
         <li
           key={i}
           onClick={() => {
@@ -135,7 +134,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex flex-initial flex-row justify-end">
-        <div className="flex items-center mr-4">
+        {/* <div className="flex items-center mr-4">
           <input
             type="checkbox"
             className="checkbox"
@@ -147,7 +146,7 @@ const Navbar = () => {
             <i className="fas fa-sun" />
             <div className="w-3 h-3 absolute bg-white rounded-full ball" />
           </label>
-        </div>
+        </div> */}
         <div className="md:hidden flex">
           <MenuItems active={active} setActive={setActive} />
           <div className="ml-4">

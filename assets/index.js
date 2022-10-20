@@ -34,6 +34,7 @@ import mainNFT1 from './main/nft1.png';
 import mainNFT2 from './main/nft2.png';
 import mainNFT3 from './main/nft3.png';
 import mainNFT4 from './main/nft4.png';
+import instagram from './instagram.png';
 
 export default {
   heartOutline,
@@ -72,4 +73,5 @@ export default {
   mainNFT2,
   mainNFT3,
   mainNFT4,
+  instagram,
 };

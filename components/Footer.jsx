@@ -37,17 +37,8 @@ const Footer = () => {
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">Copyright © 2022 Cripto Gallery NFT </p>
           <div className="flex flex-row sm:mt-4">
             <div className={`${theme === 'light' ? 'filter invert' : ''} space-x-6`}>
-              <a target="_blank" href="/" alt="github" rel="noreferrer">
-                <Image src={images.github} objectFit="contain" className="cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition duration-500" width={24} height={24} alt="github" />
-              </a>
-              <a target="_blank" href="/" alt="twitter" rel="noreferrer">
-                <Image src={images.twitter} objectFit="contain" className="cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition duration-500" width={24} height={24} alt="twitter" />
-              </a>
-              <a target="_blank" href="/" alt="telegram" rel="noreferrer">
-                <Image src={images.telegram} objectFit="contain" className="cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition duration-500" width={24} height={24} alt="telegram" />
-              </a>
-              <a target="_blank" href="/" alt="youtube" rel="noreferrer">
-                <Image src={images.youtube} objectFit="contain" className="cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition duration-500" width={24} height={24} alt="youtube" />
+              <a target="_blank" href="https://www.instagram.com/criptogallerynft/" alt="youtube" rel="noreferrer">
+                <Image src={images.instagram} objectFit="contain" className="cursor-pointer opacity-80 hover:opacity-100 hover:scale-105 transition duration-500" width={24} height={24} alt="youtube" />
               </a>
             </div>
           </div>
