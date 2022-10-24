@@ -5,6 +5,7 @@
   "engines": {
     "node": "16.*.0"
   },
+  "homepage": "https://www.criptoarts.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
